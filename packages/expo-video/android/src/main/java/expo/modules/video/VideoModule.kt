@@ -287,7 +287,7 @@ class VideoModule : Module() {
         }
       }
 
-      Property("progressUpdateInterval")
+      Property("timeUpdateEventInterval")
         .get { ref: VideoPlayer ->
           ref.intervalUpdateClock.interval / 1000.0
         }
