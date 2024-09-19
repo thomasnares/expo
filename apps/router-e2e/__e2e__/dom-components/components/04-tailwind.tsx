@@ -1,5 +1,7 @@
 'use dom';
 
+import * as Haptics from 'expo-haptics';
+
 import '../global.css';
 
 export default function Page(_: { dom?: import('expo/dom').DOMProps }) {
@@ -10,6 +12,9 @@ export default function Page(_: { dom?: import('expo/dom').DOMProps }) {
         {/* @ts-expect-error: ReactNativeWebView  */}
         DOM: {String(!!(typeof ReactNativeWebView !== 'undefined'))}
       </p>
+      <button onClick={() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)}>
+        Haptics
+      </button>
     </div>
   );
 }
