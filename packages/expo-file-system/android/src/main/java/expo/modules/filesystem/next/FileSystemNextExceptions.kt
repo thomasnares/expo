@@ -1,4 +1,5 @@
 package expo.modules.filesystem.next
+import expo.modules.interfaces.filesystem.Permission
 import expo.modules.kotlin.exception.CodedException
 
 internal class CopyFolderToFileException :
@@ -19,4 +20,9 @@ internal class DestinationDoesNotExistException :
 internal class UnableToDownloadException(reason: String) :
   CodedException(
     "Unable to download a file: '$reason'"
+  )
+
+internal class InvalidPermissionException(permission: Permission) :
+  CodedException(
+    "Missing '${permission.name}' permission for accessing the file."
   )

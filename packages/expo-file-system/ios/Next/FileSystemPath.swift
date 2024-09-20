@@ -9,10 +9,18 @@ internal class FileSystemPath: SharedObject {
     self.url = standardizedUrl
   }
 
+  func validatePermission(_ flag: EXFileSystemPermissionFlags) throws {
+    try ensurePathPermission(appContext, path: url.path, flag: flag)
+  }
+
   func delete() throws {
     try FileManager.default.removeItem(at: url)
   }
+
   func copy(to destination: FileSystemPath) throws {
+    try validatePermission(.read)
+    try destination.validatePermission(.write)
+
     if destination is FileSystemDirectory {
       try FileManager.default.copyItem(at: url, to: destination.url.appendingPathComponent(url.lastPathComponent))
     }
@@ -25,6 +33,9 @@ internal class FileSystemPath: SharedObject {
   }
 
   func move(to destination: FileSystemPath) throws {
+    try validatePermission(.write)
+    try destination.validatePermission(.write)
+
     if destination is FileSystemDirectory {
       let to = destination.url.appendingPathComponent(url.lastPathComponent, isDirectory: self is FileSystemDirectory)
       try FileManager.default.moveItem(at: url, to: to)

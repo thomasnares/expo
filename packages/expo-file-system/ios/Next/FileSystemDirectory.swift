@@ -7,6 +7,7 @@ internal final class FileSystemDirectory: FileSystemPath {
   }
 
   func validateType() throws {
+    try validatePermission(.read)
     var isDirectory: ObjCBool = false
     if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) {
       if !isDirectory.boolValue {
@@ -17,10 +18,17 @@ internal final class FileSystemDirectory: FileSystemPath {
 
   func create() throws {
     try validateType()
+    try validatePermission(.write)
     try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
   }
 
   var exists: Bool {
+    do {
+      try validatePermission(.read)
+    } catch {
+      return false
+    }
+
     var isDirectory: ObjCBool = false
     if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) {
       return isDirectory.boolValue
@@ -30,6 +38,7 @@ internal final class FileSystemDirectory: FileSystemPath {
 
   // Internal only function
   func listAsRecords() throws -> [[String: Any]] {
+    try validatePermission(.read)
     var contents: [[String: Any]] = []
 
     let items = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
