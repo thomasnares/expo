@@ -4,10 +4,13 @@
 
 ### 🛠 Breaking changes
 
+- This version includes fingerprint result breaking changes. ([#31638](https://github.com/expo/expo/pull/31638) by [@kudo](https://github.com/kudo))
+
 ### 🎉 New features
 
 - Added support to pass string array for `sourceSkips` in the `fingerprint.config.js`. ([#30754](https://github.com/expo/expo/pull/30754) by [@kudo](https://github.com/kudo))
 - Added `ignorePaths` support to `fingerprint.config.js`. ([#30768](https://github.com/expo/expo/pull/30768) by [@kudo](https://github.com/kudo))
+- Added `useRNCoreAutolinkingFromExpo` option to support react-native core autolinking from `expo-modules-autolinking. ([#31638](https://github.com/expo/expo/pull/31638) by [@kudo](https://github.com/kudo))
 
 ### 🐛 Bug fixes
 
