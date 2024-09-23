@@ -38,12 +38,18 @@ export declare class Directory {
     create(): void;
     /**
      * Copies a directory.
+     *
+     * If the destination exists, the source directory will be placed into the destination directory.
+     * If the destination does not exist (but the containing folder does exist), the source directory will be copied and renamed to the destination.
      */
-    copy(destination: Directory | File): any;
+    copy(destination: Directory): void;
     /**
      * Moves a directory. Updates the `uri` property that now points to the new location.
+     *
+     * If the destination exists, the source directory will be placed into the destination directory.
+     * If the destination does not exist (but the containing folder does exist), the source directory will be renamed to the destination.
      */
-    move(destination: Directory | File): any;
+    move(destination: Directory): void;
     /**
      * @hidden
      * Lists the contents of a directory. Should not be used directly, as it returns a list of paths.
@@ -107,11 +113,11 @@ export declare class File {
     /**
      * Copies a file.
      */
-    copy(destination: Directory | File): any;
+    copy(destination: Directory | File): void;
     /**
      * Moves a directory. Updates the `uri` property that now points to the new location.
      */
-    move(destination: Directory | File): any;
+    move(destination: Directory | File): void;
     /**
      * Downloads a file from the network.
      * @param url - The URL of the file to download.
