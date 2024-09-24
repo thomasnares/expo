@@ -10,6 +10,7 @@ const emitter = new LegacyEventEmitter(NotificationsEmitterModule);
 const didReceiveNotificationEventName = 'onDidReceiveNotification';
 const didDropNotificationsEventName = 'onNotificationsDeleted';
 const didReceiveNotificationResponseEventName = 'onDidReceiveNotificationResponse';
+const didClearNotificationResponseEventName = 'onDidClearNotificationResponse';
 
 // @docsMissing
 export const DEFAULT_ACTION_IDENTIFIER = 'expo.modules.notifications.actions.DEFAULT';
@@ -137,5 +138,15 @@ export async function clearLastNotificationResponseAsync(): Promise<void> {
   if (!NotificationsEmitterModule.clearLastNotificationResponseAsync) {
     throw new UnavailabilityError('ExpoNotifications', 'getLastNotificationResponseAsync');
   }
+  emitter.emit(didClearNotificationResponseEventName, []);
   return await NotificationsEmitterModule.clearLastNotificationResponseAsync();
+}
+
+/**
+ * @hidden
+ */
+export function addNotificationResponseClearedListener(listener: () => void): EventSubscription {
+  return emitter.addListener<void>(didClearNotificationResponseEventName, () => {
+    listener();
+  });
 }

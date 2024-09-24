@@ -85,4 +85,8 @@ export declare function getLastNotificationResponseAsync(): Promise<Notification
  * @return A promise that resolves if the native call was succesful.
  */
 export declare function clearLastNotificationResponseAsync(): Promise<void>;
+/**
+ * @hidden
+ */
+export declare function addNotificationResponseClearedListener(listener: () => void): EventSubscription;
 //# sourceMappingURL=NotificationsEmitter.d.ts.map
